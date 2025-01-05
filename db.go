@@ -68,7 +68,7 @@ func loadTodos() []TodoItem {
 		}
 		// Parse time in local timezone
 		todo.deadline = time.Now()  // Default to current time if parsing fails
-		if t, err := time.Parse("2006-01-02 15:04:05", deadline); err == nil {
+		if t, err := time.Parse("01-02 15:04", deadline); err == nil {
 			todo.deadline = t
 		} else {
 			log.Printf("Error parsing deadline: %v", err)
@@ -87,7 +87,7 @@ func saveTodo(todo TodoItem) error {
 	_, err := db.Exec(`
 		INSERT INTO todos (content, status, deadline, completed)
 		VALUES (?, ?, ?, ?)
-	`, todo.content, string(todo.status), now.Format("2006-01-02 15:04:05"), todo.completed)
+	`, todo.content, string(todo.status), now.Format("01-02 15:04"), todo.completed)
 	return err
 }
 
@@ -97,7 +97,7 @@ func updateTodo(todo TodoItem) error {
 		UPDATE todos 
 		SET status = ?, deadline = ?, completed = ?
 		WHERE content = ?
-	`, string(todo.status), now.Format("2006-01-02 15:04:05"), todo.completed, todo.content)
+	`, string(todo.status), now.Format("01-02 15:04"), todo.completed, todo.content)
 	return err
 }
 

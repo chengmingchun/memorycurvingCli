@@ -53,9 +53,9 @@ func nextStatus(current rune) (rune, time.Duration) {
 	case 'o':
 		return 'x', 24 * time.Hour
 	case 'x':
-		return '√', 7 * 24 * time.Hour // 7 days
+		return '√', 7 * 24 * time.Hour
 	case '√':
-		return '√', 0 // Will be removed after 7 days
+		return '√', 0
 	default:
 		return ' ', 0
 	}
@@ -86,7 +86,6 @@ func initialModel() *model {
 	ta.SetWidth(50)
 	ta.SetHeight(1)
 
-	// Remove cursor line styling
 	ta.FocusedStyle.CursorLine = lipgloss.NewStyle()
 
 	ta.ShowLineNumbers = false
@@ -107,7 +106,6 @@ func initialModel() *model {
 		selected:    0,
 	}
 
-	// Update viewport content immediately
 	m.updateViewport()
 
 	return m
